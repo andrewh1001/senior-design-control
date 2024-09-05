@@ -1,37 +1,8 @@
-// Select the buttons by their ID
 const upButton = document.getElementById('up');
 const leftButton = document.getElementById('left');
 const rightButton = document.getElementById('right');
 const downButton = document.getElementById('down');
 
-var result = "None"
-// Add event listeners to each button
-upButton.addEventListener('click', () => {
-    console.log('Up button pressed');
-    result = "up";
-    document.getElementById('result').innerHTML = result;
-});
-
-leftButton.addEventListener('click', () => {
-    console.log('Left button pressed');
-    result = "left";
-    document.getElementById('result').innerHTML = result;
-});
-
-rightButton.addEventListener('click', () => {
-    console.log('Right button pressed');
-    result = "right";
-    document.getElementById('result').innerHTML = result;
-});
-
-
-downButton.addEventListener('click', () => {
-    console.log('Down button pressed');
-    result = "down";
-    document.getElementById('result').innerHTML = result;
-});
-
-var node = document.getElementsByTagName("p")[0];
 var longpress = false;
 var presstimer = null;
 var longtarget = null;
@@ -57,7 +28,7 @@ var click = function(e) {
         return false;
     }
 
-    alert("press");
+    document.getElementById('result').innerHTML = this.id;
 };
 
 var start = function(e) {
@@ -70,10 +41,10 @@ var start = function(e) {
     longpress = false;
 
     this.classList.add("longpress");
-
+    id = this.id
     if (presstimer === null) {
         presstimer = setTimeout(function() {
-            alert("long click");
+            document.getElementById('result').innerHTML = id + " long pressed";
             longpress = true;
         }, 1000);
     }
@@ -81,10 +52,34 @@ var start = function(e) {
     return false;
 };
 
-node.addEventListener("mousedown", start);
-node.addEventListener("touchstart", start);
-node.addEventListener("click", click);
-node.addEventListener("mouseout", cancel);
-node.addEventListener("touchend", cancel);
-node.addEventListener("touchleave", cancel);
-node.addEventListener("touchcancel", cancel);
+upButton.addEventListener("mousedown", start);
+upButton.addEventListener("touchstart", start);
+upButton.addEventListener("click", click);
+upButton.addEventListener("mouseout", cancel);
+upButton.addEventListener("touchend", cancel);
+upButton.addEventListener("touchleave", cancel);
+upButton.addEventListener("touchcancel", cancel);
+
+downButton.addEventListener("mousedown", start);
+downButton.addEventListener("touchstart", start);
+downButton.addEventListener("click", click);
+downButton.addEventListener("mouseout", cancel);
+downButton.addEventListener("touchend", cancel);
+downButton.addEventListener("touchleave", cancel);
+downButton.addEventListener("touchcancel", cancel);
+
+leftButton.addEventListener("mousedown", start);
+leftButton.addEventListener("touchstart", start);
+leftButton.addEventListener("click", click);
+leftButton.addEventListener("mouseout", cancel);
+leftButton.addEventListener("touchend", cancel);
+leftButton.addEventListener("touchleave", cancel);
+leftButton.addEventListener("touchcancel", cancel);
+
+rightButton.addEventListener("mousedown", start);
+rightButton.addEventListener("touchstart", start);
+rightButton.addEventListener("click", click);
+rightButton.addEventListener("mouseout", cancel);
+rightButton.addEventListener("touchend", cancel);
+rightButton.addEventListener("touchleave", cancel);
+rightButton.addEventListener("touchcancel", cancel);
