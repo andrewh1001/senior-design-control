@@ -83,3 +83,41 @@ rightButton.addEventListener("mouseout", cancel);
 rightButton.addEventListener("touchend", cancel);
 rightButton.addEventListener("touchleave", cancel);
 rightButton.addEventListener("touchcancel", cancel);
+
+document.addEventListener('keydown', function(e) {
+    switch (e.key) {
+        case "ArrowUp":
+            upButton.classList.add("longpress");
+            result.innerHTML = "Up key pressed";
+            break;
+        case "ArrowDown":
+            downButton.classList.add("longpress");
+            result.innerHTML = "Down key pressed";
+            break;
+        case "ArrowLeft":
+            leftButton.classList.add("longpress");
+            result.innerHTML = "Left key pressed";
+            break;
+        case "ArrowRight":
+            rightButton.classList.add("longpress");
+            result.innerHTML = "Right key pressed";
+            break;
+    }
+});
+
+document.addEventListener('keyup', function(e) {
+    switch (e.key) {
+        case "ArrowUp":
+            upButton.classList.remove("longpress");
+            break;
+        case "ArrowDown":
+            downButton.classList.remove("longpress");
+            break;
+        case "ArrowLeft":
+            leftButton.classList.remove("longpress");
+            break;
+        case "ArrowRight":
+            rightButton.classList.remove("longpress");
+            break;
+    }
+});

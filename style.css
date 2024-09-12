@@ -1,0 +1,9 @@
+html {
+    display: inline-block;
+    text-align: center;
+}
+
+button {
+    padding: 14px 20px;
+    margin: 8px 0;
+}
