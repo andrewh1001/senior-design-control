@@ -36,8 +36,8 @@
 
     disconnectButton.addEventListener('click', disconnectDevice);
 
-    onButton.addEventListener('click', () => writeOnCharacteristic('w'));
-    offButton.addEventListener('click', () => writeOnCharacteristic('a'));
+    onButton.addEventListener('click', () => writeOnCharacteristic(0x7e));
+    offButton.addEventListener('click', () => writeOnCharacteristic(0x5e));
 
     function connectToDevice() {
         navigator.bluetooth.requestDevice({
