@@ -7,3 +7,67 @@ button {
     padding: 14px 20px;
     margin: 8px 0;
 }
+
+.arrow-button {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    border-radius: 5px;
+    margin: 10px;
+    text-align: center;
+    line-height: 60px;
+    background-color: #f0f0f0;
+    border: 2px solid #ccc;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.arrow-button:active {
+    background-color: #ddd;
+}
+
+/* Center the buttons in a grid layout */
+.arrow-buttons {
+    display: grid;
+    grid-template-columns: 60px 60px 60px;
+    grid-template-rows: 60px 60px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Position the buttons to mimic WASD layout */
+#up {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+#left {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+#down {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+#right {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+.longpress {
+    -webkit-animation: 1s longpress;
+            animation: 1s longpress;
+}
+
+@-webkit-keyframes longpress {
+    0%, 20% { background: red; }
+    100% { background: yellow; }
+}
+
+@keyframes longpress {
+    0%, 20% { background: red; }
+    100% { background: yellow; }
+}
