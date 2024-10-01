@@ -195,7 +195,7 @@ function handleMovement() {
     } else if (keyState.down) {
         downButton.classList.add("active");
         result.innerHTML = "Down key pressed";
-        writePwmValue(0x0000);
+        writePwmValue(0x005A);
     }
 }
 
