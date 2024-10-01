@@ -299,7 +299,7 @@ function writePwmValue(value) {
         bleServiceFound.getCharacteristic(ledCharacteristic)
         .then(characteristic => {
             console.log("Found the LED characteristic: ", characteristic.uuid);
-            const data = new Uint8Array([value]);
+            const data = new Uint16Array([value]);
             return characteristic.writeValue(data);
         })
         .then(() => {
