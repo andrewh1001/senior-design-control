@@ -98,8 +98,10 @@ document.addEventListener('keydown', function(e) {
         toggleButton.disabled = !toggleButton.disabled;
         if (toggleButton.disabled) {
             result.innerHTML = "Button Disabled";
+            writePwmValue(0xffff);
         } else {
             result.innerHTML = "Button Enabled";
+            writePwmValue(0x0000);
         }
         return;
     }
