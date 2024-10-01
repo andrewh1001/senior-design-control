@@ -304,7 +304,7 @@ function writePwmValue(value) {
         })
         .then(() => {
             latestValueSent.innerHTML = value;
-            console.log("Value written to LED characteristic:", value);
+            console.log("Value written to LED characteristic:", value.toString(16));
         })
         .catch(error => {
             console.error("Error writing to the LED characteristic: ", error);
