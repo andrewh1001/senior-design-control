@@ -233,16 +233,13 @@ disconnectButton.addEventListener('click', disconnectDevice);
 // Set PWM Value Button
 setPwmButton.addEventListener('click', () => {
     const pwmValue = parseInt(pwmValueInput.value);
-    if (pwmValue >= 0 && pwmValue <= 180) {
-        writePwmValue(pwmValue);
-    } else {
-        console.error("Invalid PWM value! Please enter a number between 0 and 255.");
-    }
+    // if (pwmValue >= 0 && pwmValue <= 180) {
+    //     writePwmValue(pwmValue);
+    // } else {
+    //     console.error("Invalid PWM value! Please enter a number between 0 and 255.");
+    // }
+    writePwmValue(pwmValue)
 });
-
-forwardButton.addEventListener('click', () => writePwmValue(190));  // 2 for forward
-backwardButton.addEventListener('click', () => writePwmValue(191)); // 3 for backward
-stopButton.addEventListener('click', () => writePwmValue(192));     // 4 for stop
 
 // Check if BLE is available in your browser
 function isWebBluetoothEnabled() {
