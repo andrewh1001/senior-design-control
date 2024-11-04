@@ -185,11 +185,11 @@ function handleMovement() {
     else if (keyState.left) {
         leftButton.classList.add("active");
         result.innerHTML = "Left key pressed";
-        writePwmValue(0x6478);
+        writePwmValue(0x6428);
     } else if (keyState.right) {
         rightButton.classList.add("active");
         result.innerHTML = "Right key pressed";
-        writePwmValue(0x6428);
+        writePwmValue(0x6478);
     } else if (keyState.up) {
         upButton.classList.add("active");
         result.innerHTML = "Up key pressed";
