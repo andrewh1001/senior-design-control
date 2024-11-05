@@ -89,7 +89,8 @@ const keyState = {
     up: false,
     down: false,
     left: false,
-    right: false
+    right: false,
+    space: false
 };
 
 document.addEventListener('keydown', function(e) {
@@ -125,6 +126,9 @@ document.addEventListener('keydown', function(e) {
             case "d":
                 keyState.right = true;
                 break;
+        }
+        if(e.code == "Space") {
+            keyState.space = true;
         }
         handleMovement();
     }
@@ -185,18 +189,21 @@ function handleMovement() {
     else if (keyState.left) {
         leftButton.classList.add("active");
         result.innerHTML = "Left key pressed";
-        writePwmValue(0x6428);
+        writePwmValue(0x3228);
     } else if (keyState.right) {
         rightButton.classList.add("active");
         result.innerHTML = "Right key pressed";
-        writePwmValue(0x6478);
+        writePwmValue(0x3278);
     } else if (keyState.up) {
         upButton.classList.add("active");
         result.innerHTML = "Up key pressed";
-        writePwmValue(0x6450);
+        writePwmValue(0x3250);
     } else if (keyState.down) {
         downButton.classList.add("active");
         result.innerHTML = "Down key pressed";
+        writePwmValue(0x9650);
+    } else if (keyState.space) {
+        result.innerHTML = "Space key pressed";
         writePwmValue(0x0050);
     }
 }
