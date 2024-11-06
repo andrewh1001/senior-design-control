@@ -163,30 +163,7 @@ document.addEventListener('keyup', function(e) {
 });
 
 function handleMovement() {
-    // Handle simultaneous pressing of keys
-    if (keyState.left && keyState.up) {
-        leftButton.classList.add("active");
-        upButton.classList.add("active");
-        result.innerHTML = "Up and Left keys pressed";
-        writePwmValue(65); // Custom PWM value for diagonal movement
-    } else if (keyState.right && keyState.up) {
-        rightButton.classList.add("active");
-        upButton.classList.add("active");
-        result.innerHTML = "Up and Right keys pressed";
-        writePwmValue(115); // Custom PWM value for diagonal movement
-    } else if (keyState.left && keyState.down) {
-        leftButton.classList.add("active");
-        downButton.classList.add("active");
-        result.innerHTML = "Down and Left keys pressed";
-        // Add logic here for simultaneous down + left
-    } else if (keyState.right && keyState.down) {
-        rightButton.classList.add("active");
-        downButton.classList.add("active");
-        result.innerHTML = "Down and Right keys pressed";
-        // Add logic here for simultaneous down + right
-    }
-    // Individual key presses
-    else if (keyState.left) {
+    if (keyState.left) {
         leftButton.classList.add("active");
         result.innerHTML = "Left key pressed";
         writePwmValue(0x6428);
