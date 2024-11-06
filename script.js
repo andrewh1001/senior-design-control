@@ -203,7 +203,7 @@ function handleMovement() {
         result.innerHTML = "Down key pressed";
         writePwmValue(0xB450);
     } else if (keyState.space) {
-        result.innerHTML = "Space key pressed";
+        result.innerHTML = "STOP";
         writePwmValue(0x0050);
     }
 
