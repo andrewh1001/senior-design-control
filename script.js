@@ -189,19 +189,19 @@ function handleMovement() {
     else if (keyState.left) {
         leftButton.classList.add("active");
         result.innerHTML = "Left key pressed";
-        writePwmValue(0x4B28);
+        writePwmValue(0x6428);
     } else if (keyState.right) {
         rightButton.classList.add("active");
         result.innerHTML = "Right key pressed";
-        writePwmValue(0x4B78);
+        writePwmValue(0x6478);
     } else if (keyState.up) {
         upButton.classList.add("active");
         result.innerHTML = "Up key pressed";
-        writePwmValue(0x4B50);
+        writePwmValue(0x6450);
     } else if (keyState.down) {
         downButton.classList.add("active");
         result.innerHTML = "Down key pressed";
-        writePwmValue(0xAF50);
+        writePwmValue(0x6450);
     } else if (keyState.space) {
         result.innerHTML = "Space key pressed";
         writePwmValue(0x0050);
