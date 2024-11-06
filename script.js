@@ -206,6 +206,7 @@ function handleMovement() {
         result.innerHTML = "Space key pressed";
         writePwmValue(0x0050);
     }
+    
 }
 
 
