@@ -191,14 +191,6 @@ function handleMovement() {
 }
 
 
-
-
-
-
-
-
-
-
 // DOM Elements
 const connectButton = document.getElementById('connectBleButton');
 const disconnectButton = document.getElementById('disconnectBleButton');
