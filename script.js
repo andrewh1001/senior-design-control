@@ -109,6 +109,7 @@ document.addEventListener('keydown', function(e) {
 
     // Handle movement keys if toggle button is enabled
     if (!toggleButton.disabled) {
+        console.log(e.code)
         switch (e.key) {
             case "ArrowUp":
             case "w":
@@ -157,6 +158,9 @@ document.addEventListener('keyup', function(e) {
                 keyState.right = false;
                 rightButton.classList.remove("active");
                 break;
+        }
+        if(e.code == "Space") {
+            keyState.space = false;
         }
         handleMovement();
     }
