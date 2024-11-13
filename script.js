@@ -4,31 +4,7 @@ const rightButton = document.getElementById('right');
 const downButton = document.getElementById('down');
 const toggleButton = document.getElementById('toggle-btn');
 
-var longpress = false;
-var presstimer = null;
-var longtarget = null;
-
-var cancel = function(e) {
-    if (presstimer !== null) {
-        clearTimeout(presstimer);
-        presstimer = null;
-    }
-
-    this.classList.remove("longpress");
-};
-
 var click = function(e) {
-    if (presstimer !== null) {
-        clearTimeout(presstimer);
-        presstimer = null;
-    }
-
-    this.classList.remove("longpress");
-
-    if (longpress) {
-        return false;
-    }
-
     document.getElementById('result').innerHTML = this.id;
 };
 
@@ -39,18 +15,13 @@ var start = function(e) {
         return;
     }
 
-    longpress = false;
-
-    this.classList.add("longpress");
-    id = this.id
-    if (presstimer === null) {
-        presstimer = setTimeout(function() {
-            document.getElementById('result').innerHTML = id + " long pressed";
-            longpress = true;
-        }, 1000);
-    }
-
+    this.classList.add("active");
+    document.getElementById('result').innerHTML = this.id + " pressed";
     return false;
+};
+
+var cancel = function(e) {
+    this.classList.remove("active");
 };
 
 upButton.addEventListener("mousedown", start);
@@ -94,7 +65,6 @@ const keyState = {
 };
 
 document.addEventListener('keydown', function(e) {
-    // Enable/disable toggle button with "t"
     if (e.key == "t") {
         toggleButton.disabled = !toggleButton.disabled;
         if (toggleButton.disabled) {
@@ -107,7 +77,6 @@ document.addEventListener('keydown', function(e) {
         return;
     }
 
-    // Handle movement keys if toggle button is enabled
     if (!toggleButton.disabled) {
         console.log(e.code)
         switch (e.key) {
@@ -133,6 +102,42 @@ document.addEventListener('keydown', function(e) {
         }
         handleMovement();
     }
+});
+
+upButton.addEventListener("touchstart", () => {
+    keyState.up = true;
+    handleMovement();
+});
+upButton.addEventListener("touchend", () => {
+    keyState.up = false;
+    handleMovement();
+});
+
+downButton.addEventListener("touchstart", () => {
+    keyState.down = true;
+    handleMovement();
+});
+downButton.addEventListener("touchend", () => {
+    keyState.down = false;
+    handleMovement();
+});
+
+leftButton.addEventListener("touchstart", () => {
+    keyState.left = true;
+    handleMovement();
+});
+leftButton.addEventListener("touchend", () => {
+    keyState.left = false;
+    handleMovement();
+});
+
+rightButton.addEventListener("touchstart", () => {
+    keyState.right = true;
+    handleMovement();
+});
+rightButton.addEventListener("touchend", () => {
+    keyState.right = false;
+    handleMovement();
 });
 
 document.addEventListener('keyup', function(e) {
@@ -190,8 +195,6 @@ function handleMovement() {
 
 }
 
-
-// DOM Elements
 const connectButton = document.getElementById('connectBleButton');
 const disconnectButton = document.getElementById('disconnectBleButton');
 const setPwmButton = document.getElementById('setPwmButton');
@@ -199,12 +202,10 @@ const pwmValueInput = document.getElementById('pwmValueInput');
 const latestValueSent = document.getElementById('valueSent');
 const bleStateContainer = document.getElementById('bleState');
 
-// Define BLE Device Specs
 var deviceName = 'ESP32';
 var bleService = '19b10000-e8f2-537e-4f6c-d104768a1214';
 var ledCharacteristic = '19b10002-e8f2-537e-4f6c-d104768a1214';
 
-// Global Variables to Handle Bluetooth
 var bleServer;
 var bleServiceFound;
 
@@ -215,21 +216,19 @@ connectButton.addEventListener('click', () => {
     }
 });
 
-// Disconnect Button
 disconnectButton.addEventListener('click', disconnectDevice);
 
-// Set PWM Value Button
 setPwmButton.addEventListener('click', () => {
-    const pwmValue = parseInt(pwmValueInput.value);
-    // if (pwmValue >= 0 && pwmValue <= 180) {
-    //     writePwmValue(pwmValue);
-    // } else {
-    //     console.error("Invalid PWM value! Please enter a number between 0 and 255.");
-    // }
-    writePwmValue(pwmValue)
+    const angle = parseInt(document.getElementById('angleInput').value);
+    const speed = parseInt(document.getElementById('speedInput').value);
+
+    if (angle >= 40 && angle <= 120 && speed >= 0 && speed <= 200) {
+        writePwmValue((speed << 8) + angle);
+    } else {
+        console.error("Invalid values! Please enter a number between 0 and 255 for both angle and speed.");
+    }
 });
 
-// Check if BLE is available in your browser
 function isWebBluetoothEnabled() {
     if (!navigator.bluetooth) {
         console.log("Web Bluetooth API is not available in this browser!");
@@ -240,7 +239,6 @@ function isWebBluetoothEnabled() {
     return true;
 }
 
-// Connect to BLE Device and Enable Notifications
 function connectToDevice() {
     console.log('Initializing Bluetooth...');
     navigator.bluetooth.requestDevice({
@@ -266,7 +264,6 @@ function connectToDevice() {
     })
     .then(characteristic => {
         console.log("LED characteristic discovered:", characteristic.uuid);
-        // No notifications for sensor characteristic, just read its value if needed
     })
     .catch(error => {
         console.log('Error: ', error);
@@ -280,7 +277,6 @@ function onDisconnected(event) {
     connectToDevice();
 }
 
-// Write the PWM value to the ESP32 BLE Characteristic
 function writePwmValue(value) {
     if (bleServer && bleServer.connected) {
         bleServiceFound.getCharacteristic(ledCharacteristic)
@@ -290,7 +286,10 @@ function writePwmValue(value) {
             return characteristic.writeValue(data);
         })
         .then(() => {
-            latestValueSent.innerHTML = value;
+            let angle = value & 0xFF;
+            let speed = (value >> 8) & 0xFF;
+
+            latestValueSent.innerHTML = `Speed: ${speed}, Angle: ${angle}`;
             console.log("Value written to LED characteristic:", value.toString(16));
         })
         .catch(error => {
